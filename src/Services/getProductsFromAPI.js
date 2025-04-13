@@ -1,5 +1,5 @@
 /*fetching apí un archivo por endpoint*/
-export async function getProductsFromAPI(url){
+export async function getProductsFromAPI(){
     
     try {
             const response = await fetch('https://fakestoreapi.com/products');
