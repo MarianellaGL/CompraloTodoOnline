@@ -1,4 +1,3 @@
-/*fetching apí un archivo por endpoint*/
 export async function getProductsFromAPI(){
     
     try {
@@ -6,6 +5,7 @@ export async function getProductsFromAPI(){
             const data = await response.json();
             return data;
         } catch (error) {
+            
             console.error('Error al obtener los productos:', error);
             return [];
         }
