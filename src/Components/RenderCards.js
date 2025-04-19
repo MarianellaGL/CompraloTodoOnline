@@ -1,10 +1,14 @@
-export function renderCards(products){
+export function renderCards(products, title){
 
     const productsContainer = document.getElementById('productsContainer');
      productsContainer.innerHTML = '';
    
      const div = document.createElement('div');
      div.classList.add('row', 'g-4');
+     const titulo = document.createElement('h2');
+        titulo.textContent = title;
+        titulo.classList.add('text-start', 'fw-light', 'mb-4', 'w-100');
+        div.appendChild(titulo);
    
      products.forEach(product => {
    
@@ -16,7 +20,9 @@ export function renderCards(products){
          <div class="card-body">
            <h3 class="card-title">${product.title}</h3>
            <p class="card-text">$${product.price}</p>
-           <button class="btn btn-primary mt-3 w-100">Comprar</button>
+           <div class="d-grid gap-2 d-md-block">
+           <button class="btn btn-primary mt-3 w-100 btn-showProduct">Mostrar</button>
+           </div>
          </div>
        </div>
        `;
