@@ -8,7 +8,6 @@ export function addToCart(product) {
     cart.push({ ...product, quantity: 1 });
   }
   saveCartToLocalStorage();
-  //alert(`"${product.title}" agregado al carrito`);
   Toastify({
     text: `"Producto ${product.title} agregado al carrito"`,
     duration: 3000, 
@@ -18,7 +17,6 @@ export function addToCart(product) {
     backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", 
     stopOnFocus: true, 
   }).showToast();
-  return;
 }
 
 export function getCart() {
@@ -28,6 +26,7 @@ export function getCart() {
 export function removeFromCart(productId) {
   cart = cart.filter(p => p.id !== productId);
   saveCartToLocalStorage();
+
 }
 
 export function loadCartFromLocalStorage() {
