@@ -18,13 +18,13 @@ export function renderCards(products, title) {
     card.classList.add('col-md-3', 'producto');
 
     card.innerHTML = `
-      <div class="card h-100" id="${product.id}">
+      <div class="card h-100 card-products" id="${product.id}">
         <img src="${product.image}" class="card-img-top" alt="${product.title}">
         <div class="card-body">
           <h3 class="card-title">${product.title}</h3>
           <p class="card-text">$${product.price}</p>
           <div class="d-grid gap-2 d-md-block">
-            <button class="btn btn-primary mt-3 w-100 btn-showProduct" data-product-id="${product.id}">Mostrar</button>
+            <button class="btn btn-primary mt-3 w-100 btn-showProduct btn-fixed" data-product-id="${product.id}">Mostrar</button>
           </div>
         </div>
       </div>
