@@ -2,6 +2,7 @@
 import { getProductsFromAPI } from "../Services/getProductsFromAPI.js";
 import { renderCards } from "../Components/RenderCards.js";
 import { getCart, loadCartFromLocalStorage , updateCartQuantity, refreshCartSidebar, renderCartItems} from '../Components/Cart.js';
+import { Spinner } from "../Components/Spinner.js";
 
 
 // Input pa la search
@@ -27,3 +28,14 @@ renderCards(products, "Productos");
 loadCartFromLocalStorage();
 
 document.getElementById('offcanvasCart').addEventListener('show.bs.offcanvas', renderCartItems)
+
+
+const loadingDiv = document.getElementById('products');
+loadingDiv.innerHTML = '<div class="text-center p-5"><div class="spinner-border text-primary" role="status"></div></div>';
+
+
+if (products.length === 0) {
+  loadingDiv.innerHTML = '<p class="text-danger">No se encontraron productos.</p>';
+} else {
+  renderCards(products, "Productos");
+}
