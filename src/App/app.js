@@ -1,10 +1,12 @@
-//para el spinner
+//spinner vainilla con todo
 import { Spinner } from "../Components/Spinner.js";
+import { getProductsFromAPI } from "../Services/getProductsFromAPI.js";
+import { renderCards } from "../Components/RenderCards.js";
 
 let products = [];
 
 const loadingDiv = document.getElementById('products');
-loadingDiv.innerHTML = '<div class="text-center p-5"><div class="spinner-border text-primary" role="status"></div></div>';
+loadingDiv.innerHTML = Spinner();
 
 products = await getProductsFromAPI();
 
