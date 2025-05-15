@@ -1,6 +1,5 @@
 import { attachShowModalEvents } from "./ShowModal.js";
 
-// Aqui creamos la funcion que renderiza las tarjetas con los estilos de bootsttrap a la cual le pasamos un arreglo de productso y unn titulo
 export function renderCards(products, title) {
   const productsContainer = document.getElementById('productsContainer');
   productsContainer.innerHTML = '';
@@ -30,20 +29,16 @@ export function renderCards(products, title) {
       </div>
     `;
 
+    const showBtn = card.querySelector('.btn-showProduct');
+    if (showBtn) {
+      showBtn.addEventListener('click', () => attachShowModalEvents(product));
+    }
+
     div.appendChild(card);
-    // Agregamos el listener  directamente pasando el product
-    setTimeout(() => {
-      const showBtn = card.querySelector('.btn-showProduct');
-      if (showBtn) {
-        showBtn.addEventListener('click', () => {
-          attachShowModalEvents(product);
-        });
-      }
-    }, 0);
   });
 
   productsContainer.appendChild(div);
-  }
+}
 
   
 
