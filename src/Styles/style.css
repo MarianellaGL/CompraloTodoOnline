@@ -119,6 +119,29 @@ footer {
     text-decoration: underline; 
 }
 
+.card-products {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card-products img {
+    height: 200px;
+    object-fit: contain;
+  }
+  
+  .card-products .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card-products .btn-showProduct {
+    margin-top: auto;
+  }
+  
+
 /* .card-products{
     position: relative;
   border: 1px solid #ccc;
