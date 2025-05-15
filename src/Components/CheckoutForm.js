@@ -23,6 +23,8 @@ export function CheckoutForm() {
   emailInput.name = 'email';
   emailInput.className = 'form-control';
   emailInput.required = true;
+  emailInput.setAttribute('aria-label', 'Correo electrónico'); 
+
   
   emailGroup.appendChild(emailLabel);
   emailGroup.appendChild(emailInput);
@@ -42,6 +44,7 @@ export function CheckoutForm() {
   nameInput.name = 'name';
   nameInput.className = 'form-control';
   nameInput.required = true;
+  nameInput.setAttribute('aria-label', 'Nombre completo');
   
   nameGroup.appendChild(nameLabel);
   nameGroup.appendChild(nameInput);
