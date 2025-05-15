@@ -139,3 +139,22 @@ footer {
   border-radius: 8px;
   cursor: pointer;
 } */
+@media (max-width: 768px) {
+  header input[type="text"] {
+    width: 100%;
+  }
+}
+
+footer {
+  background-color: #ffcc00;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  position: relative;
+}
+@media (min-height: 700px) {
+  footer {
+    position: fixed;
+    bottom: 0;
+  }
+}
