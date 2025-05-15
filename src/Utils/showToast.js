@@ -1,4 +1,4 @@
-// /src/Utils/showToast.js
+// centralizamos toastify, si les parece cambiamos la dirpor otra en vez de /src/Utils/ 
 
 export function showToast(message, color = "#00b09b") {
   Toastify({
