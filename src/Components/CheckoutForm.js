@@ -1,23 +1,67 @@
-// falso form
+// falso form 
 export function CheckoutForm() {
-  const handleSubmit = (e) => {
+  //creacion formulario
+  const form = document.createElement('form');
+  form.className = 'p-4 border rounded';
+  
+//titulo formulario
+  const h3 = document.createElement('h3');
+  h3.textContent = 'Finalizar Compra';
+  
+//correo electronico
+  const emailGroup = document.createElement('div');
+  emailGroup.className = 'mb-3';
+  
+  const emailLabel = document.createElement('label');
+  emailLabel.setAttribute('for', 'email');
+  emailLabel.className = 'form-label';
+  emailLabel.textContent = 'Correo electrónico';
+  
+  const emailInput = document.createElement('input');
+  emailInput.type = 'email';
+  emailInput.id = 'email';
+  emailInput.name = 'email';
+  emailInput.className = 'form-control';
+  emailInput.required = true;
+  
+  emailGroup.appendChild(emailLabel);
+  emailGroup.appendChild(emailInput);
+  
+//nombre completo
+  const nameGroup = document.createElement('div');
+  nameGroup.className = 'mb-3';
+  
+  const nameLabel = document.createElement('label');
+  nameLabel.setAttribute('for', 'name');
+  nameLabel.className = 'form-label';
+  nameLabel.textContent = 'Nombre completo';
+  
+  const nameInput = document.createElement('input');
+  nameInput.type = 'text';
+  nameInput.id = 'name';
+  nameInput.name = 'name';
+  nameInput.className = 'form-control';
+  nameInput.required = true;
+  
+  nameGroup.appendChild(nameLabel);
+  nameGroup.appendChild(nameInput);
+  
+//boton envio
+  const submitButton = document.createElement('button');
+  submitButton.type = 'submit';
+  submitButton.className = 'btn btn-success';
+  submitButton.textContent = 'Confirmar compra';
+//elem. formulario
+  form.appendChild(h3);
+  form.appendChild(emailGroup);
+  form.appendChild(nameGroup);
+  form.appendChild(submitButton);
+//envento de manejo del envio del form
+  form.addEventListener('submit', function (e) {
     e.preventDefault();
-    const email = e.target.email.value;
+    const email = emailInput.value;
     alert(`¡Gracias por tu compra! Nos comunicaremos contigo pronto para brindarte más detalles a ${email}.`);
-  };
+  });
 
-  return (
-    <form onSubmit={handleSubmit} className="p-4 border rounded">
-      <h3>Finalizar Compra</h3>
-      <div className="mb-3">
-        <label htmlFor="email" className="form-label">Correo electrónico</label>
-        <input type="email" className="form-control" id="email" name="email" required />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="name" className="form-label">Nombre completo</label>
-        <input type="text" className="form-control" id="name" name="name" required />
-      </div>
-      <button type="submit" className="btn btn-success">Confirmar compra</button>
-    </form>
-  );
+  return form;
 }
