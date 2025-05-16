@@ -1,4 +1,6 @@
 import { showToast } from "../Utils/showToast.js";
+import { clearCart } from './Cart.js';
+import { renderCartItems } from './Cart.js';
 
 // falso form 
 export function CheckoutForm() {
