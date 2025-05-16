@@ -2,10 +2,10 @@
 ## 👥 Grupo 1  
 
 ### 👨‍💻 Integrantes  
-- **Marianella Gomez Luna**  
-- **Catalina Eva Imas Guerrero**  
-- **Juan Pablo Mancebo**  
-- **Stephany Suarez**  
+- [**Marianella Gomez Luna**](https://github.com/marianellaGl)  
+- [**Catalina Eva Imas Guerrero**](https://github.com/cata1110)  
+- [**Juan Pablo Mancebo**](https://github.com/juanpidev92)  
+- [**Stephany Suarez**](https://github.com/Stephy1989)  
 
 ---
 
