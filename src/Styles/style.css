@@ -38,6 +38,7 @@ header input[type="text"] {
 
 main {
     padding: 20px;
+    padding-bottom: 100px;
 }
 
 .ultimos-productos, .productos {
