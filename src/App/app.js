@@ -5,7 +5,8 @@ import {
   loadCartFromLocalStorage,
   updateCartQuantity,
   refreshCartSidebar,
-  renderCartItems
+  renderCartItems,
+  clearCart,
 } from "../Components/Cart.js";
 import { Spinner } from "../Components/Spinner.js";
 import { CheckoutForm } from "../Components/CheckoutForm.js";
@@ -18,11 +19,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const loadingDiv = document.getElementById("products");
   const deleteBtn = document.getElementById("deleteCartBtn");
 
-  // Mostrar spinner mientras se cargan productos
-  loadingDiv.innerHTML = `
-    <div class="text-center p-5">
-      <div class="spinner-border text-primary" role="status"></div>
-    </div>`;
+  if (loadingDiv) {
+    loadingDiv.innerHTML = Spinner();
+  }
 
   // Cargar productos
   let products = await getProductsFromAPI();
@@ -75,16 +74,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // Vaciar carrito
-  if (deleteBtn) {
-    deleteBtn.addEventListener("click", () => {
-      localStorage.setItem("shoppingCart", JSON.stringify([])); // Vacía el carrito
-      if (typeof refreshCartSidebar === "function") refreshCartSidebar(); // Limpiar visualmente el carrito
-      if (checkoutSection) checkoutSection.innerHTML = ""; // Limpiar formulario si está visible
 
-      // Ocultar botones si es necesario
-      deleteBtn.classList.add("d-none");
-      const buyBtn = document.getElementById("buyCartBtn");
-      if (buyBtn) buyBtn.classList.add("d-none");
-    });
-  }
+  deleteBtn.addEventListener("click", () => {
+    clearCart();
+  });
 });

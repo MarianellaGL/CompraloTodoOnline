@@ -3,17 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Compralo todo online</title>
 
     <!-- link de Bootstrap -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
-      crossorigin="anonymous"/>
+      crossorigin="anonymous"
+    />
 
-     <!-- link de Toastify-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <!-- link de Toastify-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
 
     <!-- CSS -->
     <link rel="stylesheet" href="./src/Styles/style.css" />
@@ -32,49 +36,68 @@
         <h1>Compra todo online</h1>
         <input id="searchInput" type="text" placeholder="Buscar..." />
         <!-- <span class="material-icons icon">shopping_cart</span> -->
-              <!-- Botón para abrir el carrito -->
-        <button class="btn material-icons icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart"> shopping_cart
-        </button>
+        <!-- Botón para abrir el carrito -->
+        <div class="cart-container">
+          <button
+            class="btn material-icons icon"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasCart"
+            aria-controls="offcanvasCart"
+          >
+            shopping_cart
+          </button>
+          <span id="cart-count" class="cart-badge" style="display: none"
+            >0</span
+          >
+        </div>
       </div>
     </header>
-    
+
     <nav>
-<!-- Sidebar Offcanvas -->
-      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
+      <!-- Sidebar Offcanvas -->
+      <div
+        class="offcanvas offcanvas-end"
+        tabindex="-1"
+        id="offcanvasCart"
+        aria-labelledby="offcanvasCartLabel"
+      >
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasCartLabel">Tu carrito</h5>
-          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+          <button
+            type="button"
+            class="btn-close text-reset"
+            data-bs-dismiss="offcanvas"
+            aria-label="Cerrar"
+          ></button>
         </div>
         <div class="offcanvas-body">
           <ul id="cartItems" class="list-group">
             <!-- Productos del carrito se llenan aquí -->
           </ul>
-          <button id="buyCartBtn" class="btn btn-primary btn-sm d-block mx-auto mt-4 d-none">Comprar carrito</button>
-          <button id="deleteCartBtn" class="btn btn-danger btn-sm d-block mx-auto mt-4 d-none">Eliminar carrito</button>
-
+          <button
+            id="buyCartBtn"
+            class="btn btn-primary btn-sm d-block mx-auto mt-4 d-none"
+          >
+            Comprar carrito
+          </button>
+          <button
+            id="deleteCartBtn"
+            class="btn btn-danger btn-sm d-block mx-auto mt-4 d-none"
+          >
+            Eliminar carrito
+          </button>
         </div>
-        
       </div>
     </nav>
-   
 
-    
-      <!-- falso form integrado -->
+    <!-- falso form integrado -->
     <div id="checkout-section" class="container mt-5"></div>
-      <!-- ultimos productos buscados -->
-      <!-- <section class="ultimos-productos">
-        <h2>Últimos productos buscados</h2>
-        <div class="lista-productos">
-          <div class="p-item">Lorem ipsum blablabla</div>
-          <div class="p-item">Lorem ipsum blablabla</div>
-          <div class="p-item">Lorem ipsum blablabla</div>
-          <div class="p-item">Lorem ipsum blablabla</div>
-        </div>
-      </section> -->
-      <main class="container" id = "productsContainer">
+
+    <main class="container" id="productsContainer">
       <section class="productos">
         <h2>Productos</h2>
-        <div id="products"></div>
+        <div id="productsContainer" class="lista-productos"></div>
       </section>
     </main>
 
@@ -104,7 +127,7 @@
     </footer>
 
     <!-- JS -->
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script type="module" src="./src/App/app.js"></script>
