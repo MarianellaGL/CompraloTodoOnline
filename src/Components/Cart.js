@@ -1,4 +1,6 @@
-let cart = [];
+import { showToast } from "../Utils/showToast.js"
+
+let cart = localStorage.getItem('shoppingCart');
 
 export function addToCart(product) {
   let existing = cart.find(p => p.id === product.id);
@@ -8,47 +10,20 @@ export function addToCart(product) {
     cart.push({ ...product, quantity: 1 });
   }
   saveCartToLocalStorage();
-  Toastify({
-    text: `"Producto ${product.title} agregado al carrito"`,
-    duration: 3000, 
-    close: true,   
-    gravity: "top", 
-    position: "right", 
-    style: {
-      background: "linear-gradient(to right, #ff416c, #ff4b2b)"
-    },
-    stopOnFocus: true, 
-  }).showToast();
+  showToast(`Producto ${product.title} agregado al carrito`, "#ff4b2b");
 }
 
 export function getCart() {
-  return [...cart]; 
+  return [...cart];
 }
 
 export function removeFromCart(productId) {
+  const removedProduct = cart.find(p => p.id === productId);
   cart = cart.filter(p => p.id !== productId);
   saveCartToLocalStorage();
-  Toastify({
-    text: `"El producto ${product.title} ha sido removido del carrito"`,
-    duration: 3000, 
-    close: true,   
-    gravity: "top", 
-    position: "right", 
-    backgroundColor: "linear-gradient(to right, #ff416c, #ff4b2b)", 
-    stopOnFocus: true, 
-  }).showToast();
-
-}
-// Esta funcion llama al localstorage y devuvelve lo guardado en el carrito
-export function loadCartFromLocalStorage() {
-  const saved = localStorage.getItem('shoppingCart');
-  if (saved) {
-    cart = JSON.parse(saved);
+  if (removedProduct) {
+    showToast(`El producto ${removedProduct.title} ha sido removido del carrito`, "#ff4b2b");
   }
-}
-// Esta funcion guarda en el localstorage del navegador un string del carrito
-export function saveCartToLocalStorage() {
-  localStorage.setItem('shoppingCart', JSON.stringify(cart));
 }
 
 export function updateCartQuantity(productId, delta) {
@@ -59,33 +34,33 @@ export function updateCartQuantity(productId, delta) {
 
   if (product.quantity <= 0) {
     cart = cart.filter(p => p.id !== productId);
-    Toastify({
-      text: `"El producto ${product.title} ha sido removido del carrito"`,
-      duration: 3000,
-      close: true,
-      gravity: "top",
-      position: "right",
-      style: {
-        background: "linear-gradient(to right, #ff416c, #ff4b2b)"
-      },
-      stopOnFocus: true,
-    }).showToast();
+    showToast(`El producto ${product.title} ha sido removido del carrito`, "#ff4b2b");
   } else {
-    Toastify({
-      text: `"Cantidad de ${product.title} actualizada a ${product.quantity}"`,
-      duration: 3000,
-      close: true,
-      gravity: "top",
-      position: "right",
-      style: {
-        background: "linear-gradient(to right, #00b09b, #96c93d)"
-      },
-      stopOnFocus: true,
-    }).showToast();
+    showToast(`Cantidad de ${product.title} actualizada a ${product.quantity}`, "#96c93d");
   }
 
   saveCartToLocalStorage();
 }
+
+export function loadCartFromLocalStorage() {
+  const saved = localStorage.getItem('shoppingCart');
+  const buyButton = document.getElementById('buyCartBtn');
+  if (saved) {
+    cart = JSON.parse(saved);
+    if (cart.length > 0)
+    {
+      buyButton.classList.remove('d-none');
+    } else {
+      buyButton.classList.add('d-none'); 
+    }
+
+  }
+}
+
+export function saveCartToLocalStorage() {
+  localStorage.setItem('shoppingCart', JSON.stringify(cart));
+}
+
 export function refreshCartSidebar() {
   const offcanvasEl = document.getElementById('offcanvasCart');
   const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
@@ -94,18 +69,22 @@ export function refreshCartSidebar() {
   setTimeout(() => {
     const newOffcanvas = new bootstrap.Offcanvas(offcanvasEl);
     newOffcanvas.show();
-  }, 200); // Tiempo suficiente para ocultar y volver a mostrar
+  }, 200);
 }
 
 export function renderCartItems() {
   const cart = getCart();
   const list = document.getElementById('cartItems');
+  const buyButton = document.getElementById('buyCartBtn'); // seleccionamos el botón
+ 
   list.innerHTML = '';
 
   if (cart.length === 0) {
     list.innerHTML = '<li class="list-group-item">El carrito está vacío</li>';
+    buyButton.classList.add('d-none');
     return;
   }
+  buyButton.classList.remove('d-none'); // mostrar botón si hay productos
 
   cart.forEach(product => {
     const li = document.createElement('li');
@@ -115,11 +94,14 @@ export function renderCartItems() {
       <img src="${product.image}" alt="${product.title}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
       <div class="flex-grow-1">
         <div>${product.title}</div>
-        <small class="text-muted">x${product.quantity}</small>
+       
       </div>
       <div class="btn-group" role="group">
-        <button class="btn btn-sm btn-outline-secondary btn-decrease" data-id="${product.id}">-</button>
-        <button class="btn btn-sm btn-outline-secondary btn-increase" data-id="${product.id}">+</button>
+        <div class="d-flex justify-content-center align-items-center">
+          <button class="btn btn-sm btn-outline-primary btn-decrease mx-1" data-id="${product.id}">-</button>
+          <small class="text-muted mx-1">x${product.quantity}</small>
+          <button class="btn btn-sm btn-outline-primary btn-increase mx-1" data-id="${product.id}">+</button>
+        </div>
       </div>
       <span class="badge bg-primary rounded-pill ms-2">$${product.price * product.quantity}</span>
     `;
@@ -127,7 +109,6 @@ export function renderCartItems() {
     list.appendChild(li);
   });
 
-  // Volver a asignar eventos
   list.querySelectorAll('.btn-increase').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = parseInt(btn.dataset.id);

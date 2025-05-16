@@ -33,8 +33,8 @@
         <input id="searchInput" type="text" placeholder="Buscar..." />
         <!-- <span class="material-icons icon">shopping_cart</span> -->
               <!-- Botón para abrir el carrito -->
-<button class="btn material-icons icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart"> shopping_cart
-</button>
+        <button class="btn material-icons icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart"> shopping_cart
+        </button>
       </div>
     </header>
     
@@ -49,12 +49,19 @@
           <ul id="cartItems" class="list-group">
             <!-- Productos del carrito se llenan aquí -->
           </ul>
+          <button id="buyCartBtn" class="btn btn-primary btn-sm d-block mx-auto mt-4 d-none">Comprar carrito</button>
+
         </div>
+        
       </div>
     </nav>
    
-    <main class="container" id = "productsContainer">
-      <section class="ultimos-productos">
+
+    
+      <!-- falso form integrado -->
+    <div id="checkout-section" class="container mt-5"></div>
+      <!-- ultimos productos buscados -->
+      <!-- <section class="ultimos-productos">
         <h2>Últimos productos buscados</h2>
         <div class="lista-productos">
           <div class="p-item">Lorem ipsum blablabla</div>
@@ -62,12 +69,12 @@
           <div class="p-item">Lorem ipsum blablabla</div>
           <div class="p-item">Lorem ipsum blablabla</div>
         </div>
-      </section>
-
+      </section> -->
+      <main class="container" id = "productsContainer">
       <section class="productos">
         <h2>Productos</h2>
         <div id="products"></div>
-
+      </section>
     </main>
 
     <footer>
@@ -96,8 +103,9 @@
     </footer>
 
     <!-- JS -->
-    <script type="module" src="./src/App/app.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script type="module" src="./src/App/app.js"></script>
   </body>
 </html>

@@ -1,41 +1,62 @@
-/*global logic*/
 import { getProductsFromAPI } from "../Services/getProductsFromAPI.js";
 import { renderCards } from "../Components/RenderCards.js";
 import { getCart, loadCartFromLocalStorage , updateCartQuantity, refreshCartSidebar, renderCartItems} from '../Components/Cart.js';
-// import { Spinner } from "../Components/Spinner.js";
+import { Spinner } from "../Components/Spinner.js";
+import { CheckoutForm } from "../Components/CheckoutForm.js";
 
+document.addEventListener('DOMContentLoaded', async () => {
+  // Elementos del DOM
+  const inputBusqueda = document.getElementById("searchInput");
+  const buyBtn = document.getElementById('buyCartBtn');
+  const checkoutSection = document.getElementById('checkout-section');
+  const loadingDiv = document.getElementById('products');
 
-// Input pa la search
-const inputBusqueda = document.getElementById("searchInput");
+  // Mostrar spinner mientras se cargan productos
+  loadingDiv.innerHTML = `
+    <div class="text-center p-5">
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>`;
 
-let products = await getProductsFromAPI();
-// Filtrar prod a medida del interaccion del user con tec
-inputBusqueda.addEventListener("input", (e) => {
-  console.log(e.target.value);
-  const texto = inputBusqueda.value.toLowerCase();
-  const filtrados = products.filter(
-    (p) =>
-      p.title.toLowerCase().includes(texto) ||
-      p.description.toLowerCase().includes(texto)
-  );
-  renderCards(filtrados, "Resultado búsqueda");
+  // Cargar productos
+  let products = await getProductsFromAPI();
+
+  // Renderizar productos si hay resultados
+  if (products.length === 0) {
+    loadingDiv.innerHTML = '<p class="text-danger">No se encontraron productos.</p>';
+  } else {
+    renderCards(products, "Productos");
+  }
+
+  // Buscar productos
+  inputBusqueda.addEventListener("input", (e) => {
+    const texto = e.target.value.toLowerCase();
+    const filtrados = products.filter(
+      (p) =>
+        p.title.toLowerCase().includes(texto) ||
+        p.description.toLowerCase().includes(texto)
+    );
+    renderCards(filtrados, "Resultado búsqueda");
+  });
+
+  // Cargar carrito del localStorage
+  loadCartFromLocalStorage();
+
+  // Mostrar contenido del carrito cuando se abre
+  document.getElementById('offcanvasCart').addEventListener('show.bs.offcanvas', renderCartItems);
+
+  // Mostrar formulario al hacer click en el botón de comprar
+  if (buyBtn && checkoutSection) {
+    buyBtn.addEventListener('click', () => {
+      const offcanvasEl = document.getElementById('offcanvasCart');
+      const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+      if (bsOffcanvas) {
+      bsOffcanvas.hide();
+      }
+
+      checkoutSection.innerHTML = ''; 
+      checkoutSection.appendChild(CheckoutForm());
+    });
+  } else {
+    console.warn("No se encontró el botón o la sección de checkout en el DOM.");
+  }
 });
-
-// Se muestran todos al cargar pagina
-renderCards(products, "Productos");
-
-// llamar al localstorage por si cosas en  el carrito
-loadCartFromLocalStorage();
-
-document.getElementById('offcanvasCart').addEventListener('show.bs.offcanvas', renderCartItems)
-
-
-const loadingDiv = document.getElementById('products');
-loadingDiv.innerHTML = '<div class="text-center p-5"><div class="spinner-border text-primary" role="status"></div></div>';
-
-
-if (products.length === 0) {
-  loadingDiv.innerHTML = '<p class="text-danger">No se encontraron productos.</p>';
-} else {
-  renderCards(products, "Productos");
-}
