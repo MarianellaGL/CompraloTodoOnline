@@ -1,6 +1,6 @@
 import { showToast } from "../Utils/showToast.js"
 
-let cart = localStorage.getItem('shoppingCart');
+let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
 
 export function addToCart(product) {
   let existing = cart.find(p => p.id === product.id);
@@ -50,8 +50,10 @@ export function loadCartFromLocalStorage() {
     if (cart.length > 0)
     {
       buyButton.classList.remove('d-none');
+      document.getElementById('deleteCartBtn').classList.remove('d-none');
     } else {
       buyButton.classList.add('d-none'); 
+      document.getElementById('deleteCartBtn').classList.add('d-none');
     }
 
   }
@@ -76,15 +78,18 @@ export function renderCartItems() {
   const cart = getCart();
   const list = document.getElementById('cartItems');
   const buyButton = document.getElementById('buyCartBtn'); // seleccionamos el botón
+
  
   list.innerHTML = '';
 
   if (cart.length === 0) {
     list.innerHTML = '<li class="list-group-item">El carrito está vacío</li>';
     buyButton.classList.add('d-none');
+    document.getElementById('deleteCartBtn').classList.add('d-none');
     return;
   }
-  buyButton.classList.remove('d-none'); // mostrar botón si hay productos
+  buyButton.classList.remove('d-none'); 
+  document.getElementById('deleteCartBtn').classList.remove('d-none');
 
   cart.forEach(product => {
     const li = document.createElement('li');

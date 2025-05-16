@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const buyBtn = document.getElementById('buyCartBtn');
   const checkoutSection = document.getElementById('checkout-section');
   const loadingDiv = document.getElementById('products');
+  const deleteBtn = document.getElementById('deleteCartBtn');
 
   // Mostrar spinner mientras se cargan productos
   loadingDiv.innerHTML = `
@@ -59,4 +60,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   } else {
     console.warn("No se encontró el botón o la sección de checkout en el DOM.");
   }
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', () => {
+      localStorage.removeItem('shoppingCart'); // Borra del almacenamiento
+      cart = []; // Asegurate de vaciar también la variable en memoria si la usás
+      if (typeof refreshCartSidebar === 'function') refreshCartSidebar(); // Limpiar visualmente el carrito
+      if (checkoutSection) checkoutSection.innerHTML = ''; // Limpiar formulario si está visible
+
+      // Ocultar botones si es necesario
+      deleteBtn.classList.add('d-none');
+      const buyBtn = document.getElementById('buyCartBtn');
+      if (buyBtn) buyBtn.classList.add('d-none');
+    });
+  }
+
 });
