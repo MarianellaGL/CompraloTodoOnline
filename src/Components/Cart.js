@@ -129,4 +129,7 @@ export function renderCartItems() {
       renderCartItems();
     });
   });
+export function clearCart() {
+  cart = [];
+  saveCartToLocalStorage();
 }
