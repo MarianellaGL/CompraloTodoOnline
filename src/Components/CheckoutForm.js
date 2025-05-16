@@ -68,14 +68,24 @@ export function CheckoutForm() {
   form.appendChild(nameGroup);
   form.appendChild(submitButton);
 //envento de manejo del envio del form
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const email = emailInput.value;
-    showToast(`¡Gracias por tu compra! Nos comunicaremos contigo pronto para brindarte más detalles a ${email}.`);
-    localStorage.setItem('shoppingCart', JSON.stringify([]));
-    form.classList.add('d-none');
-    cards.classList.remove('d-none');
-  });
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  const email = emailInput.value;
 
-  return form;
-}
+  // Vaciar carrito correctamente
+  clearCart();            // limpia carrito en memoria y localStorage
+  renderCartItems();      // vuelve a renderizar la lista vacía
+
+  // Mostrar mensaje
+  showToast(`¡Gracias por tu compra! Nos comunicaremos contigo pronto a ${email}.`);
+
+  // Restaurar interfaz
+  form.classList.add('d-none');
+  cards.classList.remove('d-none');
+
+  // Ocultar botones de compra/eliminar si todavía están
+  const buyBtn = document.getElementById('buyCartBtn');
+  const deleteBtn = document.getElementById('deleteCartBtn');
+  if (buyBtn) buyBtn.classList.add('d-none');
+  if (deleteBtn) deleteBtn.classList.add('d-none');
+});
