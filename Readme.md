@@ -37,10 +37,10 @@
 ---
 
 ### 🔹 Marianella Gomez Luna
-- Prototipado y definición del diseño del proyecto (**wireframes y estilos**).  
+- Figma inicial.  
 - Organización del equipo y gestión de tareas.  
 - **Scaffolding inicial**.  
-- **Pair programming para dar asistencia**.  
+- Pair programming para dar asistencia.  
 - Revisión del código para asegurar calidad y consistencia.  
 
 ---
